@@ -1,0 +1,966 @@
+<!doctype html>
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FIDOCX | Automatización documental</title>
+
+    <meta
+      name="description"
+      content="FIDOCX permite generar documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX."
+    />
+
+    <link rel="icon" type="image/png" href="assets/logo/icono.png" />
+    <link rel="shortcut icon" href="icon.ico" />
+
+    <meta property="og:title" content="FIDOCX | Automatización documental" />
+    <meta
+      property="og:description"
+      content="Genera documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX."
+    />
+    <meta property="og:image" content="assets/logo/logo.png" />
+    <meta property="og:type" content="website" />
+
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --primary-light: #dbeafe;
+        --bg: #f8fafc;
+        --text: #0f172a;
+        --muted: #64748b;
+        --card: #ffffff;
+        --border: #e2e8f0;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: auto;
+      }
+
+      .nav {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-img {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+      }
+
+      .logo-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      .logo-subtitle {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .hero {
+        padding: 82px 0;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 44px;
+        align-items: center;
+      }
+
+      .hero-logo {
+        width: 180px;
+        margin-bottom: 24px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        font-size: clamp(36px, 6vw, 60px);
+        line-height: 1.05;
+        letter-spacing: -1.8px;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 19px;
+        color: var(--muted);
+        margin-bottom: 28px;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 14px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: var(--text);
+        border-color: var(--border);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-1px);
+      }
+
+      .hero-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .mockup {
+        background: #0f172a;
+        color: white;
+        border-radius: 18px;
+        padding: 22px;
+        min-height: 320px;
+      }
+
+      .mockup-top {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #94a3b8;
+      }
+
+      .mockup-title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        color: #ffffff;
+      }
+
+      .mockup-box {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 14px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+      }
+
+      .mockup-box strong {
+        color: white;
+      }
+
+      .mockup-box span {
+        color: #cbd5e1;
+        display: block;
+        margin-top: 4px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+      }
+
+      .section-title p {
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+      }
+
+      .card-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        margin-bottom: 16px;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      .card p {
+        color: var(--muted);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+      }
+
+      .step {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .step-number {
+        width: 38px;
+        height: 38px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+      }
+
+      .step strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .step p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .video-box {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 24px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+      }
+
+      .video-placeholder {
+        background: #e2e8f0;
+        border-radius: 16px;
+        min-height: 320px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-weight: 800;
+        margin-bottom: 18px;
+        padding: 22px;
+      }
+
+      .requirements {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .notice {
+        background: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 20px;
+      }
+
+      .cta {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        border-radius: 28px;
+        padding: 48px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .cta h2 {
+        font-size: 34px;
+        margin-bottom: 12px;
+      }
+
+      .cta p {
+        margin: 12px auto 24px;
+        opacity: 0.92;
+        font-size: 18px;
+        max-width: 720px;
+      }
+
+      .cta .btn {
+        background: white;
+        color: var(--primary);
+      }
+
+      .cta .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .contact-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 16px;
+        padding: 18px;
+        color: white;
+        text-align: left;
+      }
+
+      .contact-card strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .contact-card a {
+        color: white;
+        font-weight: 800;
+        text-decoration: underline;
+        word-break: break-word;
+      }
+
+      .faq {
+        display: grid;
+        gap: 14px;
+      }
+
+      .faq-item {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+      }
+
+      .faq-item h3 {
+        margin-bottom: 8px;
+      }
+
+      .faq-item p {
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 34px 0;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        color: var(--muted);
+        background: white;
+      }
+
+      .footer-logo {
+        width: 54px;
+        margin-bottom: 10px;
+      }
+
+      footer strong {
+        color: var(--text);
+      }
+
+      footer a {
+        color: var(--primary);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .sistema-preview {
+        margin-top: 34px;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: white;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+      }
+
+      .sistema-preview img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 56px 0;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+
+        .requirements {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-logo {
+          width: 145px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .cta {
+          padding: 34px 22px;
+        }
+
+        .section-title h2 {
+          font-size: 30px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="logo-wrap">
+          <img
+            class="logo-img"
+            src="assets/logo/icono.png"
+            alt="FIDOCX icono"
+          />
+          <div class="logo-text">
+            <span class="logo-title">FIDOCX</span>
+            <span class="logo-subtitle"
+              >Procesos documentales configurables</span
+            >
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#funciones">Funciones</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#videos">Videos</a>
+          <a href="#contacto">Solicitar demo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="container hero">
+        <div>
+          <img class="hero-logo" src="assets/logo/logo.png" alt="FIDOCX Logo" />
+
+          <span class="badge">Automatización documental para Windows</span>
+
+          <h1>Genera documentos Word y PDF desde Excel en minutos</h1>
+
+          <p>
+            FIDOCX permite cargar datos, mapearlos a plantillas DOCX, validar
+            información y generar documentos de forma individual o masiva.
+          </p>
+
+          <div class="buttons">
+            <a class="btn btn-primary" href="#contacto">Solicitar demo</a>
+            <a class="btn btn-secondary" href="#videos">Ver videos</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mockup">
+            <div class="mockup-top">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <div class="mockup-title">Flujo documental en FIDOCX</div>
+
+            <div class="mockup-box">
+              <strong>1. Cargar datos</strong>
+              <span>Excel, CSV, JSON o formulario.</span>
+            </div>
+
+            <div class="mockup-box">
+              <strong>2. Mapear plantilla DOCX</strong>
+              <span>{{nombre}} → nombre | {{dni}} → dni</span>
+            </div>
+
+            <div class="mockup-box">
+              <strong>3. Validar información</strong>
+              <span>Detecta errores antes de generar documentos.</span>
+            </div>
+
+            <div class="mockup-box">
+              <strong>4. Generar documentos</strong>
+              <span>DOCX y PDF listos para entregar.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="funciones">
+        <div class="container">
+          <div class="section-title">
+            <h2>Funciones principales</h2>
+            <p>
+              Diseñado para reducir trabajo manual y errores en documentos
+              repetitivos.
+            </p>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <div class="card-icon">01</div>
+              <h3>Excel a DOCX/PDF</h3>
+              <p>
+                Carga datos desde Excel y genera documentos usando plantillas
+                Word.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">02</div>
+              <h3>Plantillas inteligentes</h3>
+              <p>
+                Usa campos dinámicos, condiciones y tablas dentro de tus
+                documentos DOCX.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">03</div>
+              <h3>Flujos reutilizables</h3>
+              <p>
+                Guarda configuraciones para repetir procesos sin mapear todo
+                nuevamente.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">04</div>
+              <h3>Validación previa</h3>
+              <p>
+                Detecta campos faltantes, datos incorrectos o configuraciones
+                incompletas antes de generar.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">05</div>
+              <h3>Historial</h3>
+              <p>
+                Consulta documentos generados y administra resultados
+                anteriores.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">06</div>
+              <h3>PDF con LibreOffice</h3>
+              <p>
+                Convierte DOCX a PDF cuando LibreOffice está disponible en el
+                equipo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="como-funciona">
+        <div class="container">
+          <div class="section-title">
+            <h2>Cómo funciona</h2>
+            <p>Un flujo simple para automatizar documentos.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <strong>Carga datos</strong>
+              <p>Excel, CSV, JSON o formulario.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <strong>Elige plantilla</strong>
+              <p>Selecciona un archivo DOCX.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <strong>Mapea campos</strong>
+              <p>Relaciona datos con etiquetas.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">4</div>
+              <strong>Valida</strong>
+              <p>Revisa errores antes de generar.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">5</div>
+              <strong>Genera</strong>
+              <p>Obtén documentos DOCX y PDF.</p>
+            </div>
+          </div>
+        </div>
+        <div class="container sistema-preview">
+          <img src="./assets/sistema.png" alt="Vista del sistema FIDOCX" />
+        </div>
+      </section>
+
+      <section id="casos">
+        <div class="container">
+          <div class="section-title">
+            <h2>Casos de uso</h2>
+            <p>FIDOCX puede adaptarse a distintos procesos administrativos.</p>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Certificados</h3>
+              <p>
+                Generación masiva de certificados desde una lista de
+                participantes.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Constancias</h3>
+              <p>
+                Constancias laborales, académicas, técnicas o administrativas.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Contratos</h3>
+              <p>
+                Documentos personalizados para clientes, proveedores o personal.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Reportes</h3>
+              <p>Reportes con datos variables y formatos definidos en Word.</p>
+            </div>
+
+            <div class="card">
+              <h3>Cartas masivas</h3>
+              <p>Cartas personalizadas a partir de datos tabulares.</p>
+            </div>
+
+            <div class="card">
+              <h3>Fichas y actas</h3>
+              <p>Generación de formatos repetitivos con validación previa.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="videos">
+        <div class="container">
+          <div class="section-title">
+            <h2>Videos demo</h2>
+            <p>Conoce cómo trabaja FIDOCX antes de solicitar una prueba.</p>
+          </div>
+
+          <div class="video-box">
+            <div class="video-placeholder">
+              Muy pronto se publicará un video explicativo sobre FIDOCX
+            </div>
+
+            <div class="buttons" style="justify-content: center">
+              <a
+                class="btn btn-primary"
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver videos demo
+              </a>
+
+              <a class="btn btn-secondary" href="#contacto">
+                Solicitar demostración
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="requisitos">
+        <div class="container">
+          <div class="section-title">
+            <h2>Requisitos</h2>
+            <p>FIDOCX está orientado inicialmente a equipos Windows.</p>
+          </div>
+
+          <div class="requirements">
+            <div class="card">
+              <h3>Windows</h3>
+              <p>
+                Compatible con equipos Windows 10 o Windows 11. La aplicación se
+                entrega como instalador de escritorio.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>LibreOffice para PDF</h3>
+              <p>
+                LibreOffice es opcional y solo se requiere para exportar
+                documentos a PDF. La generación DOCX puede funcionar sin
+                LibreOffice.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            <strong>Nota:</strong>
+            El instalador de FIDOCX se entrega bajo solicitud. Actualmente no se publica una descarga libre.
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto">
+        <div class="container">
+          <div class="cta">
+            <h2>Solicita una demostración de FIDOCX</h2>
+
+            <p>
+              Conoce el funcionamiento de FIDOCX y solicita acceso de prueba. El
+              instalador se entrega bajo solicitud.
+            </p>
+
+            <div class="buttons" style="justify-content: center">
+              <a
+                class="btn"
+                href="mailto:cartolin.fidel@gmail.com?subject=Solicito demo de FIDOCX"
+              >
+                Solicitar por correo
+              </a>
+
+              <a
+                class="btn"
+                href="https://www.linkedin.com/in/fidel-cartolin-rojas/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Contactar por LinkedIn
+              </a>
+            </div>
+
+            <div class="contact-grid">
+              <div class="contact-card">
+                <strong>Correo</strong>
+                <a href="mailto:cartolin.fidel@gmail.com">
+                  cartolin.fidel@gmail.com
+                </a>
+              </div>
+
+              <div class="contact-card">
+                <strong>LinkedIn</strong>
+                <a
+                  href="https://www.linkedin.com/in/fidel-cartolin-rojas/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Fidel Cartolin Rojas
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="container">
+          <div class="section-title">
+            <h2>Preguntas frecuentes</h2>
+          </div>
+
+          <div class="faq">
+            <div class="faq-item">
+              <h3>¿FIDOCX funciona sin internet?</h3>
+              <p>
+                Sí. FIDOCX es una aplicación de escritorio. El flujo documental
+                principal puede ejecutarse localmente en el equipo.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Necesita LibreOffice?</h3>
+              <p>
+                Solo para exportar a PDF. La generación DOCX puede funcionar sin
+                LibreOffice.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Puedo descargar el instalador directamente?</h3>
+              <p>
+                Por ahora el instalador se entrega bajo solicitud.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué tipo de documentos puedo generar?</h3>
+              <p>
+                Certificados, constancias, contratos, reportes, cartas, fichas,
+                actas y documentos administrativos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <img class="footer-logo" src="assets/logo/icono.png" alt="FIDOCX icono" />
+
+      <div>
+        <strong>FIDOCX</strong> © 2026 — Automatización documental para Windows
+      </div>
+
+      <div>
+        Contacto:
+        <a href="mailto:cartolin.fidel@gmail.com">cartolin.fidel@gmail.com</a>
+        ·
+        <a
+          href="https://www.linkedin.com/in/fidel-cartolin-rojas/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
