@@ -1,27 +1,113 @@
 <!doctype html>
-
-<html lang="es">
+<html lang="es-PE">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>FIDOCX | Automatización documental</title>
+    <title>FIDOCX | Generador de documentos Word y PDF desde Excel</title>
 
     <meta
       name="description"
-      content="FIDOCX permite generar documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX."
+      content="FIDOCX es una aplicación para Windows que permite generar documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX, validación de datos y flujos reutilizables."
     />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Fidel Cartolin Rojas" />
+    <meta
+      name="keywords"
+      content="FIDOCX, generar documentos Word desde Excel, generar PDF desde Excel, automatización documental, plantillas DOCX, documentos masivos, Excel a Word, Excel a PDF, software documental Windows"
+    />
+
+    <link rel="canonical" href="https://cartolin.github.io/FIDOCX/" />
+    <link rel="alternate" type="text/markdown" href="https://cartolin.github.io/FIDOCX/llms.txt" title="Resumen de FIDOCX para modelos de lenguaje" />
 
     <link rel="icon" type="image/png" href="assets/logo/icono.png" />
     <link rel="shortcut icon" href="icon.ico" />
 
-    <meta property="og:title" content="FIDOCX | Automatización documental" />
+    <meta property="og:title" content="FIDOCX | Generador de documentos Word y PDF desde Excel" />
     <meta
       property="og:description"
-      content="Genera documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX."
+      content="Automatiza documentos repetitivos con FIDOCX. Genera Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX."
     />
-    <meta property="og:image" content="assets/logo/logo.png" />
+    <meta property="og:image" content="https://cartolin.github.io/FIDOCX/assets/logo/logo.png" />
+    <meta property="og:url" content="https://cartolin.github.io/FIDOCX/" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:site_name" content="FIDOCX" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FIDOCX | Generador de documentos Word y PDF desde Excel" />
+    <meta
+      name="twitter:description"
+      content="Genera documentos Word y PDF desde Excel usando plantillas DOCX, validación de datos y flujos reutilizables."
+    />
+    <meta name="twitter:image" content="https://cartolin.github.io/FIDOCX/assets/logo/logo.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "FIDOCX",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Windows 10, Windows 11",
+        "description": "FIDOCX es una aplicación para Windows que permite generar documentos Word y PDF desde Excel, CSV, JSON o formularios usando plantillas DOCX.",
+        "url": "https://cartolin.github.io/FIDOCX/",
+        "image": "https://cartolin.github.io/FIDOCX/assets/logo/logo.png",
+        "author": {
+          "@type": "Person",
+          "name": "Fidel Cartolin Rojas",
+          "url": "https://www.linkedin.com/in/fidel-cartolin-rojas/"
+        },
+        "featureList": [
+          "Generación de documentos Word desde Excel",
+          "Exportación de documentos a PDF",
+          "Uso de plantillas DOCX",
+          "Validación previa de datos",
+          "Flujos documentales reutilizables",
+          "Carga de datos desde Excel, CSV, JSON o formularios"
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿FIDOCX funciona sin internet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. FIDOCX es una aplicación de escritorio para Windows. El flujo principal de generación documental puede ejecutarse localmente en el equipo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿FIDOCX necesita LibreOffice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "LibreOffice solo se requiere para exportar documentos a PDF. La generación de documentos DOCX puede funcionar sin LibreOffice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué documentos puedo generar con FIDOCX?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "FIDOCX permite generar certificados, constancias, contratos, cartas masivas, reportes, fichas, actas y otros documentos administrativos usando plantillas DOCX."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Se puede generar documentos masivos desde Excel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. FIDOCX permite cargar datos desde Excel y generar documentos de forma individual o masiva usando campos dinámicos en plantillas Word."
+            }
+          }
+        ]
+      }
+    </script>
 
     <style>
       :root {
@@ -55,6 +141,27 @@
         line-height: 1.6;
       }
 
+      a {
+        color: inherit;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: -48px;
+        left: 16px;
+        background: var(--primary);
+        color: #ffffff;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 800;
+        text-decoration: none;
+        z-index: 20;
+      }
+
+      .skip-link:focus {
+        top: 16px;
+      }
+
       header {
         background: rgba(255, 255, 255, 0.95);
         border-bottom: 1px solid var(--border);
@@ -70,16 +177,18 @@
       }
 
       .nav {
-        height: 76px;
+        min-height: 76px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 24px;
       }
 
       .logo-wrap {
         display: flex;
         align-items: center;
         gap: 12px;
+        text-decoration: none;
       }
 
       .logo-img {
@@ -120,7 +229,8 @@
         font-size: 14px;
       }
 
-      .nav-links a:hover {
+      .nav-links a:hover,
+      .nav-links a:focus {
         color: var(--primary);
       }
 
@@ -134,6 +244,7 @@
 
       .hero-logo {
         width: 180px;
+        max-width: 100%;
         margin-bottom: 24px;
       }
 
@@ -161,6 +272,22 @@
         margin-bottom: 28px;
       }
 
+      .hero-list {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+        margin-bottom: 28px;
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .hero-list li::before {
+        content: "✓";
+        color: var(--success);
+        font-weight: 900;
+        margin-right: 8px;
+      }
+
       .buttons {
         display: flex;
         gap: 14px;
@@ -183,7 +310,8 @@
         color: white;
       }
 
-      .btn-primary:hover {
+      .btn-primary:hover,
+      .btn-primary:focus {
         background: var(--primary-dark);
         transform: translateY(-1px);
       }
@@ -194,7 +322,8 @@
         border-color: var(--border);
       }
 
-      .btn-secondary:hover {
+      .btn-secondary:hover,
+      .btn-secondary:focus {
         border-color: var(--primary);
         color: var(--primary);
         transform: translateY(-1px);
@@ -272,6 +401,8 @@
       .section-title p {
         color: var(--muted);
         font-size: 17px;
+        max-width: 760px;
+        margin: auto;
       }
 
       .grid {
@@ -345,6 +476,30 @@
         font-size: 14px;
       }
 
+      .sistema-preview {
+        margin-top: 34px;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: white;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+      }
+
+      .sistema-preview img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .use-case-note {
+        margin-top: 24px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 16px;
+      }
+
       .video-box {
         background: white;
         border: 1px solid var(--border);
@@ -357,7 +512,7 @@
       .video-placeholder {
         background: #e2e8f0;
         border-radius: 16px;
-        min-height: 320px;
+        min-height: 220px;
         display: grid;
         place-items: center;
         color: var(--muted);
@@ -382,11 +537,7 @@
       }
 
       .cta {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border-radius: 28px;
         padding: 48px;
@@ -411,7 +562,8 @@
         color: var(--primary);
       }
 
-      .cta .btn:hover {
+      .cta .btn:hover,
+      .cta .btn:focus {
         transform: translateY(-1px);
       }
 
@@ -486,50 +638,31 @@
         text-decoration: none;
       }
 
-      footer a:hover {
+      footer a:hover,
+      footer a:focus {
         text-decoration: underline;
       }
 
-      .sistema-preview {
-        margin-top: 34px;
-        overflow: hidden;
-        border-radius: 22px;
-        border: 1px solid var(--border);
-        background: white;
-        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
-      }
-
-      .sistema-preview img {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-      }
       @media (max-width: 900px) {
         .hero {
           grid-template-columns: 1fr;
           padding: 56px 0;
         }
 
-        .grid {
-          grid-template-columns: 1fr;
-        }
-
-        .steps {
-          grid-template-columns: 1fr;
-        }
-
-        .requirements {
-          grid-template-columns: 1fr;
-        }
-
+        .grid,
+        .steps,
+        .requirements,
         .contact-grid {
           grid-template-columns: 1fr;
         }
 
         .hero-logo {
           width: 145px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          padding: 16px 0;
         }
 
         .nav-links {
@@ -548,54 +681,71 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
     <header>
       <div class="container nav">
-        <div class="logo-wrap">
+        <a class="logo-wrap" href="https://cartolin.github.io/FIDOCX/" aria-label="Ir al inicio de FIDOCX">
           <img
             class="logo-img"
             src="assets/logo/icono.png"
-            alt="FIDOCX icono"
+            alt="Icono de FIDOCX"
+            width="42"
+            height="42"
           />
           <div class="logo-text">
             <span class="logo-title">FIDOCX</span>
-            <span class="logo-subtitle"
-              >Procesos documentales configurables</span
-            >
+            <span class="logo-subtitle">Procesos documentales configurables</span>
           </div>
-        </div>
+        </a>
 
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Navegación principal">
           <a href="#funciones">Funciones</a>
           <a href="#como-funciona">Cómo funciona</a>
-          <a href="#videos">Videos</a>
+          <a href="#casos">Casos de uso</a>
+          <a href="#requisitos">Requisitos</a>
           <a href="#contacto">Solicitar demo</a>
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="contenido">
       <section class="container hero">
         <div>
-          <img class="hero-logo" src="assets/logo/logo.png" alt="FIDOCX Logo" />
+          <img
+            class="hero-logo"
+            src="assets/logo/logo.png"
+            alt="FIDOCX, generador de documentos Word y PDF desde Excel"
+            width="180"
+            height="180"
+          />
 
           <span class="badge">Automatización documental para Windows</span>
 
-          <h1>Genera documentos Word y PDF desde Excel en minutos</h1>
+          <h1>Generador de documentos Word y PDF desde Excel</h1>
 
           <p>
-            FIDOCX permite cargar datos, mapearlos a plantillas DOCX, validar
-            información y generar documentos de forma individual o masiva.
+            FIDOCX automatiza la creación de documentos repetitivos usando datos
+            de Excel, CSV, JSON o formularios. Permite mapear campos a plantillas
+            DOCX, validar información y generar archivos Word o PDF de forma
+            individual o masiva.
           </p>
+
+          <ul class="hero-list" aria-label="Beneficios principales de FIDOCX">
+            <li>Convierte datos de Excel en documentos Word personalizados.</li>
+            <li>Genera documentos masivos con plantillas DOCX reutilizables.</li>
+            <li>Reduce errores manuales mediante validación previa.</li>
+          </ul>
 
           <div class="buttons">
             <a class="btn btn-primary" href="#contacto">Solicitar demo</a>
-            <a class="btn btn-secondary" href="#videos">Ver videos</a>
+            <a class="btn btn-secondary" href="#como-funciona">Ver cómo funciona</a>
           </div>
         </div>
 
-        <div class="hero-card">
+        <div class="hero-card" aria-label="Resumen del flujo documental en FIDOCX">
           <div class="mockup">
-            <div class="mockup-top">
+            <div class="mockup-top" aria-hidden="true">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
@@ -629,67 +779,68 @@
       <section id="funciones">
         <div class="container">
           <div class="section-title">
-            <h2>Funciones principales</h2>
+            <h2>Automatización documental con plantillas DOCX</h2>
             <p>
-              Diseñado para reducir trabajo manual y errores en documentos
-              repetitivos.
+              FIDOCX está diseñado para reducir trabajo manual, evitar errores y
+              acelerar la generación de documentos repetitivos en procesos
+              administrativos, académicos, comerciales o internos.
             </p>
           </div>
 
           <div class="grid">
-            <div class="card">
-              <div class="card-icon">01</div>
-              <h3>Excel a DOCX/PDF</h3>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">01</div>
+              <h3>Excel a DOCX y PDF</h3>
               <p>
-                Carga datos desde Excel y genera documentos usando plantillas
-                Word.
+                Carga datos desde Excel y genera documentos personalizados usando
+                plantillas Word con campos dinámicos.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <div class="card-icon">02</div>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">02</div>
               <h3>Plantillas inteligentes</h3>
               <p>
-                Usa campos dinámicos, condiciones y tablas dentro de tus
-                documentos DOCX.
+                Usa marcadores, campos variables, condiciones y tablas dentro de
+                tus documentos DOCX.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <div class="card-icon">03</div>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">03</div>
               <h3>Flujos reutilizables</h3>
               <p>
-                Guarda configuraciones para repetir procesos sin mapear todo
-                nuevamente.
+                Guarda configuraciones para repetir procesos documentales sin
+                realizar el mapeo desde cero.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <div class="card-icon">04</div>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">04</div>
               <h3>Validación previa</h3>
               <p>
                 Detecta campos faltantes, datos incorrectos o configuraciones
-                incompletas antes de generar.
+                incompletas antes de generar los archivos finales.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <div class="card-icon">05</div>
-              <h3>Historial</h3>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">05</div>
+              <h3>Generación masiva</h3>
               <p>
-                Consulta documentos generados y administra resultados
-                anteriores.
+                Crea varios documentos en una sola ejecución a partir de registros
+                tabulares o datos estructurados.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <div class="card-icon">06</div>
-              <h3>PDF con LibreOffice</h3>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">06</div>
+              <h3>Exportación a PDF</h3>
               <p>
-                Convierte DOCX a PDF cuando LibreOffice está disponible en el
-                equipo.
+                Convierte documentos DOCX a PDF cuando LibreOffice está disponible
+                en el equipo Windows.
               </p>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -697,120 +848,144 @@
       <section id="como-funciona">
         <div class="container">
           <div class="section-title">
-            <h2>Cómo funciona</h2>
-            <p>Un flujo simple para automatizar documentos.</p>
+            <h2>Cómo generar documentos Word y PDF desde Excel</h2>
+            <p>
+              El flujo de FIDOCX permite transformar datos estructurados en
+              documentos listos para entregar, firmar, archivar o enviar.
+            </p>
           </div>
 
           <div class="steps">
             <div class="step">
               <div class="step-number">1</div>
               <strong>Carga datos</strong>
-              <p>Excel, CSV, JSON o formulario.</p>
+              <p>Importa Excel, CSV, JSON o registra datos desde formulario.</p>
             </div>
 
             <div class="step">
               <div class="step-number">2</div>
               <strong>Elige plantilla</strong>
-              <p>Selecciona un archivo DOCX.</p>
+              <p>Selecciona un archivo DOCX con campos dinámicos.</p>
             </div>
 
             <div class="step">
               <div class="step-number">3</div>
               <strong>Mapea campos</strong>
-              <p>Relaciona datos con etiquetas.</p>
+              <p>Relaciona las columnas de datos con etiquetas de Word.</p>
             </div>
 
             <div class="step">
               <div class="step-number">4</div>
               <strong>Valida</strong>
-              <p>Revisa errores antes de generar.</p>
+              <p>Revisa errores o datos incompletos antes de generar.</p>
             </div>
 
             <div class="step">
               <div class="step-number">5</div>
               <strong>Genera</strong>
-              <p>Obtén documentos DOCX y PDF.</p>
+              <p>Obtén documentos DOCX y PDF de forma individual o masiva.</p>
             </div>
           </div>
-        </div>
-        <div class="container sistema-preview">
-          <img src="./assets/sistema.png" alt="Vista del sistema FIDOCX" />
+
+          <div class="sistema-preview">
+            <img
+              src="./assets/sistema.png"
+              alt="Vista del sistema FIDOCX para generar documentos Word y PDF desde Excel"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </div>
       </section>
 
       <section id="casos">
         <div class="container">
           <div class="section-title">
-            <h2>Casos de uso</h2>
-            <p>FIDOCX puede adaptarse a distintos procesos administrativos.</p>
+            <h2>Software para generar documentos masivos</h2>
+            <p>
+              FIDOCX puede adaptarse a distintos procesos donde se repiten
+              formatos y solo cambian los datos de cada persona, cliente,
+              proveedor, alumno, paciente o registro.
+            </p>
           </div>
 
           <div class="grid">
-            <div class="card">
+            <article class="card">
               <h3>Certificados</h3>
               <p>
-                Generación masiva de certificados desde una lista de
-                participantes.
+                Generación masiva de certificados desde una lista de participantes,
+                cursos, fechas, notas o responsables.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="card">
               <h3>Constancias</h3>
               <p>
-                Constancias laborales, académicas, técnicas o administrativas.
+                Constancias laborales, académicas, técnicas o administrativas con
+                información personalizada.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="card">
               <h3>Contratos</h3>
               <p>
-                Documentos personalizados para clientes, proveedores o personal.
+                Documentos personalizados para clientes, proveedores, personal o
+                acuerdos internos.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="card">
               <h3>Reportes</h3>
-              <p>Reportes con datos variables y formatos definidos en Word.</p>
-            </div>
+              <p>
+                Reportes con datos variables, formatos definidos en Word y salida
+                en DOCX o PDF.
+              </p>
+            </article>
 
-            <div class="card">
+            <article class="card">
               <h3>Cartas masivas</h3>
-              <p>Cartas personalizadas a partir de datos tabulares.</p>
-            </div>
+              <p>
+                Cartas personalizadas a partir de datos tabulares sin copiar y
+                pegar manualmente.
+              </p>
+            </article>
 
-            <div class="card">
+            <article class="card">
               <h3>Fichas y actas</h3>
-              <p>Generación de formatos repetitivos con validación previa.</p>
-            </div>
+              <p>
+                Generación de formatos repetitivos con validación previa y campos
+                configurables.
+              </p>
+            </article>
           </div>
+
+          <p class="use-case-note">
+            También puede utilizarse para documentos administrativos, formatos
+            internos, comunicaciones personalizadas y procesos que requieren
+            estandarización documental.
+          </p>
         </div>
       </section>
 
       <section id="videos">
         <div class="container">
           <div class="section-title">
-            <h2>Videos demo</h2>
-            <p>Conoce cómo trabaja FIDOCX antes de solicitar una prueba.</p>
+            <h2>Demo de FIDOCX</h2>
+            <p>
+              Solicita una demostración para revisar el flujo completo: carga de
+              datos, mapeo de plantilla DOCX, validación y generación de archivos.
+            </p>
           </div>
 
           <div class="video-box">
             <div class="video-placeholder">
-              Muy pronto se publicará un video explicativo sobre FIDOCX
+              Próximamente se publicará un video explicativo sobre la generación
+              de documentos Word y PDF con FIDOCX.
             </div>
 
             <div class="buttons" style="justify-content: center">
-              <a
-                class="btn btn-primary"
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ver videos demo
-              </a>
-
-              <a class="btn btn-secondary" href="#contacto">
-                Solicitar demostración
-              </a>
+              <a class="btn btn-primary" href="#contacto">Solicitar demostración</a>
+              <a class="btn btn-secondary" href="#funciones">Ver funciones</a>
             </div>
           </div>
         </div>
@@ -819,32 +994,35 @@
       <section id="requisitos">
         <div class="container">
           <div class="section-title">
-            <h2>Requisitos</h2>
-            <p>FIDOCX está orientado inicialmente a equipos Windows.</p>
+            <h2>Requisitos para usar FIDOCX</h2>
+            <p>
+              FIDOCX está orientado inicialmente a equipos Windows y procesos
+              documentales locales.
+            </p>
           </div>
 
           <div class="requirements">
-            <div class="card">
-              <h3>Windows</h3>
+            <article class="card">
+              <h3>Windows 10 o Windows 11</h3>
               <p>
-                Compatible con equipos Windows 10 o Windows 11. La aplicación se
-                entrega como instalador de escritorio.
+                Compatible con equipos Windows. La aplicación se entrega como
+                instalador de escritorio bajo solicitud.
               </p>
-            </div>
+            </article>
 
-            <div class="card">
-              <h3>LibreOffice para PDF</h3>
+            <article class="card">
+              <h3>LibreOffice para exportar a PDF</h3>
               <p>
-                LibreOffice es opcional y solo se requiere para exportar
-                documentos a PDF. La generación DOCX puede funcionar sin
-                LibreOffice.
+                LibreOffice es opcional y solo se requiere para exportar documentos
+                a PDF. La generación DOCX puede funcionar sin LibreOffice.
               </p>
-            </div>
+            </article>
           </div>
 
           <div class="notice">
             <strong>Nota:</strong>
-            El instalador de FIDOCX se entrega bajo solicitud. Actualmente no se publica una descarga libre.
+            El instalador de FIDOCX se entrega bajo solicitud. Actualmente no se
+            publica una descarga libre.
           </div>
         </div>
       </section>
@@ -855,14 +1033,14 @@
             <h2>Solicita una demostración de FIDOCX</h2>
 
             <p>
-              Conoce el funcionamiento de FIDOCX y solicita acceso de prueba. El
-              instalador se entrega bajo solicitud.
+              Conoce cómo FIDOCX puede ayudarte a automatizar documentos Word y
+              PDF desde Excel, reducir tareas manuales y estandarizar tus formatos.
             </p>
 
             <div class="buttons" style="justify-content: center">
               <a
                 class="btn"
-                href="mailto:cartolin.fidel@gmail.com?subject=Solicito demo de FIDOCX"
+                href="mailto:cartolin.fidel@gmail.com?subject=Solicito%20demo%20de%20FIDOCX&body=Hola%20Fidel,%20quisiera%20solicitar%20una%20demostraci%C3%B3n%20de%20FIDOCX."
               >
                 Solicitar por correo
               </a>
@@ -880,9 +1058,7 @@
             <div class="contact-grid">
               <div class="contact-card">
                 <strong>Correo</strong>
-                <a href="mailto:cartolin.fidel@gmail.com">
-                  cartolin.fidel@gmail.com
-                </a>
+                <a href="mailto:cartolin.fidel@gmail.com">cartolin.fidel@gmail.com</a>
               </div>
 
               <div class="contact-card">
@@ -903,50 +1079,67 @@
       <section id="faq">
         <div class="container">
           <div class="section-title">
-            <h2>Preguntas frecuentes</h2>
+            <h2>Preguntas frecuentes sobre FIDOCX</h2>
           </div>
 
           <div class="faq">
-            <div class="faq-item">
+            <article class="faq-item">
               <h3>¿FIDOCX funciona sin internet?</h3>
               <p>
                 Sí. FIDOCX es una aplicación de escritorio. El flujo documental
                 principal puede ejecutarse localmente en el equipo.
               </p>
-            </div>
+            </article>
 
-            <div class="faq-item">
-              <h3>¿Necesita LibreOffice?</h3>
+            <article class="faq-item">
+              <h3>¿FIDOCX necesita LibreOffice?</h3>
               <p>
                 Solo para exportar a PDF. La generación DOCX puede funcionar sin
                 LibreOffice.
               </p>
-            </div>
+            </article>
 
-            <div class="faq-item">
+            <article class="faq-item">
               <h3>¿Puedo descargar el instalador directamente?</h3>
               <p>
-                Por ahora el instalador se entrega bajo solicitud.
+                Por ahora el instalador se entrega bajo solicitud para controlar
+                pruebas, instalación y soporte inicial.
               </p>
-            </div>
+            </article>
 
-            <div class="faq-item">
+            <article class="faq-item">
               <h3>¿Qué tipo de documentos puedo generar?</h3>
               <p>
                 Certificados, constancias, contratos, reportes, cartas, fichas,
                 actas y documentos administrativos.
               </p>
-            </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>¿FIDOCX permite generar documentos masivos desde Excel?</h3>
+              <p>
+                Sí. Puedes cargar una tabla de Excel, mapear sus columnas a una
+                plantilla DOCX y generar documentos personalizados por registro.
+              </p>
+            </article>
           </div>
         </div>
       </section>
     </main>
 
     <footer>
-      <img class="footer-logo" src="assets/logo/icono.png" alt="FIDOCX icono" />
+      <img
+        class="footer-logo"
+        src="assets/logo/icono.png"
+        alt="Icono de FIDOCX"
+        width="54"
+        height="54"
+        loading="lazy"
+        decoding="async"
+      />
 
       <div>
-        <strong>FIDOCX</strong> © 2026 — Automatización documental para Windows
+        <strong>FIDOCX</strong> © 2026 — Generador de documentos Word y PDF desde Excel
       </div>
 
       <div>

@@ -1,0 +1,34 @@
+# FIDOCX
+
+FIDOCX es una aplicación de escritorio para Windows orientada a la automatización documental.
+
+## Descripción
+
+FIDOCX permite generar documentos Word y PDF desde datos de Excel, CSV, JSON o formularios usando plantillas DOCX. El sistema permite cargar datos, mapear campos a una plantilla Word, validar información y generar documentos de forma individual o masiva.
+
+## Funciones principales
+
+- Generación de documentos Word desde Excel.
+- Exportación de documentos a PDF.
+- Uso de plantillas DOCX con campos dinámicos.
+- Validación previa de datos antes de generar documentos.
+- Configuración de flujos documentales reutilizables.
+- Carga de datos desde Excel, CSV, JSON o formularios.
+
+## Casos de uso
+
+FIDOCX puede utilizarse para generar certificados, constancias, contratos, reportes, cartas masivas, fichas, actas y documentos administrativos.
+
+## Requisitos
+
+- Windows 10 o Windows 11.
+- LibreOffice opcional para exportación a PDF.
+
+## Página oficial
+
+https://cartolin.github.io/FIDOCX/
+
+## Contacto
+
+Correo: cartolin.fidel@gmail.com
+LinkedIn: https://www.linkedin.com/in/fidel-cartolin-rojas/
