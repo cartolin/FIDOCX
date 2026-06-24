@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cartolin.github.io/FIDOCX/sitemap.xml
