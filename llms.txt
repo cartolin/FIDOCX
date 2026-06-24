@@ -1,34 +1,35 @@
 # FIDOCX
 
-FIDOCX es una aplicación de escritorio para Windows orientada a la automatización documental.
+FIDOCX is a Windows desktop application for document automation.
 
-## Descripción
+## Description
 
-FIDOCX permite generar documentos Word y PDF desde datos de Excel, CSV, JSON o formularios usando plantillas DOCX. El sistema permite cargar datos, mapear campos a una plantilla Word, validar información y generar documentos de forma individual o masiva.
+FIDOCX generates Word and PDF documents from Excel, CSV, JSON or forms using DOCX templates. It allows users to load data, map fields to a Word template, validate information and generate documents individually or in bulk.
 
-## Funciones principales
+## Main features
 
-- Generación de documentos Word desde Excel.
-- Exportación de documentos a PDF.
-- Uso de plantillas DOCX con campos dinámicos.
-- Validación previa de datos antes de generar documentos.
-- Configuración de flujos documentales reutilizables.
-- Carga de datos desde Excel, CSV, JSON o formularios.
+- Generate Word documents from Excel.
+- Export documents to PDF.
+- Use DOCX templates with dynamic fields.
+- Validate data before document generation.
+- Reuse configurable document workflows.
+- Load data from Excel, CSV, JSON or forms.
 
-## Casos de uso
+## Use cases
 
-FIDOCX puede utilizarse para generar certificados, constancias, contratos, reportes, cartas masivas, fichas, actas y documentos administrativos.
+FIDOCX can be used to generate certificates, letters, contracts, reports, forms, records and administrative documents.
 
-## Requisitos
+## Requirements
 
-- Windows 10 o Windows 11.
-- LibreOffice opcional para exportación a PDF.
+- Windows 10 or Windows 11.
+- LibreOffice is optional and used for PDF export.
 
-## Página oficial
+## Official pages
 
-https://cartolin.github.io/FIDOCX/
+Spanish: https://cartolin.github.io/FIDOCX/
+English: https://cartolin.github.io/FIDOCX/en/
 
-## Contacto
+## Contact
 
-Correo: cartolin.fidel@gmail.com
+Email: cartolin.fidel@gmail.com
 LinkedIn: https://www.linkedin.com/in/fidel-cartolin-rojas/
